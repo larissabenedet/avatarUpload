@@ -1,15 +1,16 @@
 import AvatarUpload from "./components/AvatarUpload";
 import styled from "styled-components";
 import GlobalStyle from './styles/global'
+import { AvatarContextProvider } from "./contexts/AvatarContext";
 
 function App() {
   return (
-    <>
+    <AvatarContextProvider>
       <GlobalStyle />
       <Container>
         <AvatarUpload />
       </Container>
-    </>);
+    </AvatarContextProvider>);
 }
 
 const Container = styled.section`

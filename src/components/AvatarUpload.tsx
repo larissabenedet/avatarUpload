@@ -1,8 +1,12 @@
 import styled from 'styled-components'
 import Dropzone from 'react-dropzone';
 import UploadMessage from './UploadMessage';
+import { useAvatarContext } from '../contexts/AvatarContext';
+import AvatarCrop from './AvatarCrop';
 
 const AvatarUpload = () => {
+    const { handleUpload, cropFile } = useAvatarContext()
+
     const renderDragMessage = (isDragActive: boolean, isDragReject: boolean) => {
         if (!isDragActive) {
             return <UploadMessage type="default" />
@@ -12,14 +16,14 @@ const AvatarUpload = () => {
         }
     }
 
-    return (
-        <Dropzone accept="image/*" onDropAccepted={() => { }}>
+    return (!cropFile ?
+        <Dropzone accept="image/*" onDropAccepted={handleUpload}>
             {({ getRootProps, getInputProps, isDragActive, isDragReject }) =>
                 <DropzoneContainer {...getRootProps()} isDragActive={isDragActive} isDragReject={isDragReject}>
                     <input {...getInputProps()} />
                     {renderDragMessage(isDragActive, isDragReject)}
                 </DropzoneContainer>}
-        </Dropzone>
+        </Dropzone> : <AvatarCrop />
     )
 }
 

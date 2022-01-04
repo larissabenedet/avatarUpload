@@ -8,7 +8,7 @@ const AvatarCrop = () => {
             <CropWrapper>
                 <p>Crop</p>
                 <p>Element</p>
-                <SaveButton>Save</SaveButton>
+                <Teste><SaveButton>Save</SaveButton></Teste>
             </CropWrapper>
 
         </Wrapper>
@@ -17,13 +17,24 @@ const AvatarCrop = () => {
 
 const Wrapper = styled.div`
     display: flex;
+    background: #F2F5F8;
+    border-radius: 8px;
+    width: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+    transition: height 0.2s ease;
 `;
 const Image = styled.img`
 `;
 const CropWrapper = styled.div`
+    width: 60%;
     display: flex;
     flex-direction: column;
     margin-left: 32px;
+`;
+const Teste = styled.div`
+    display: flex;
+    justify-content: right;
 `;
 const SaveButton = styled.button`
     display: flex;

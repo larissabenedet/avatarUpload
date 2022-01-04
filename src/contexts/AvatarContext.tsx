@@ -1,5 +1,8 @@
-import React, { ReactNode, useContext } from "react";
+import React, { ReactNode, useContext, useState } from "react";
 interface ContextValue {
+    uploadedFile: any
+    cropFile: boolean
+    handleUpload: (file: any) => void
 }
 
 interface Props {
@@ -11,8 +14,15 @@ export const AvatarContext = React.createContext<ContextValue | undefined>(
 );
 
 export const AvatarContextProvider = ({ children }: Props) => {
+    const [uploadedFile, setUploadedFile] = useState('')
+    const [cropFile, setCropFile] = useState(false)
 
-    const value = {};
+    function handleUpload(file: any) {
+        setUploadedFile(file)
+        setCropFile(true)
+    }
+
+    const value = { uploadedFile, handleUpload, cropFile };
 
     return <AvatarContext.Provider value={value}>{children}</AvatarContext.Provider>;
 };
