@@ -2,34 +2,32 @@ import styled from 'styled-components'
 import Dropzone from 'react-dropzone';
 import UploadMessage from './UploadMessage';
 import { useAvatarContext } from '../contexts/AvatarContext';
-import AvatarCrop from './AvatarCrop';
+import UploadResult from './UploadResult';
 
 const AvatarUpload = () => {
-    const { handleUpload, cropFile } = useAvatarContext()
+    const { handleUpload, cropFile, handleError, hasError } = useAvatarContext()
 
-    const renderDragMessage = (isDragActive: boolean, isDragReject: boolean) => {
-        if (!isDragActive) {
-            return <UploadMessage type="default" />
+    function showUpload() {
+        if (hasError) {
+            return <UploadResult type="error" />
         }
-        if (isDragReject) {
-            return <UploadMessage type="error" />
+        else if (cropFile) {
+            return <UploadResult type="success" />
+        } else {
+            return <Dropzone accept="image/*" onDropAccepted={handleUpload} onDropRejected={handleError}>
+                {({ getRootProps, getInputProps, isDragActive, isDragReject }) =>
+                    <DropzoneContainer {...getRootProps()} isDragActive={isDragActive} isDragReject={isDragReject}>
+                        <input {...getInputProps()} />
+                        <UploadMessage />
+                    </DropzoneContainer>}
+            </Dropzone>
         }
     }
 
-    return (!cropFile ?
-        <Dropzone accept="image/*" onDropAccepted={handleUpload}>
-            {({ getRootProps, getInputProps, isDragActive, isDragReject }) =>
-                <DropzoneContainer {...getRootProps()} isDragActive={isDragActive} isDragReject={isDragReject}>
-                    <input {...getInputProps()} />
-                    {renderDragMessage(isDragActive, isDragReject)}
-                </DropzoneContainer>}
-        </Dropzone> : <AvatarCrop />
-    )
+    return showUpload()
 }
 
-const DropzoneContainer = styled.div.attrs({
-    className: "dropzone"
-}) <{ isDragActive: boolean, isDragReject: boolean }>`
+const DropzoneContainer = styled.div<{ isDragActive: boolean, isDragReject: boolean }>`
   background: #F2F5F8;
   border: 2px dashed #C7CDD3;
   border-radius: 8px;
@@ -40,11 +38,11 @@ const DropzoneContainer = styled.div.attrs({
   justify-content: center;
   padding: 64px;
   box-sizing: border-box;
-  transition: height 0.2s ease;
+  transition: all 0.2s ease;
   cursor: pointer;
 
-  ${(props) => (props.isDragActive && `border: none;`)};
-  ${(props) => (props.isDragReject && `border: none;`)};
+  ${(props) => (props.isDragActive && `border-color: #00b900;`)};
+  ${(props) => (props.isDragReject && `border-color: red;`)};
 `;
 
 export default AvatarUpload
