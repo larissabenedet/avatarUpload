@@ -18,6 +18,7 @@ const Container = styled.section`
   display: flex;
   align-items: center;
   height: 100vh;
+  padding: 0 10px;
 `;
 
 export default App;

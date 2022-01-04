@@ -24,6 +24,7 @@ html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, em, img
 	vertical-align: baseline;
 	font-family: 'Inter', sans-serif;
 	color: var(--gray05);
+	box-sizing: border-box;
 }
 
 h1, h2, h3, h4, h5, h6, p, a, ul {
