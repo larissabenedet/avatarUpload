@@ -18,7 +18,8 @@ const Container = styled.section`
   max-width: 553px;
   margin: 0 auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   height: 100vh;
 
   @media (max-width: 768px) {

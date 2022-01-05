@@ -8,7 +8,6 @@
     "@mui/material": "^5.2.7",
     "@mui/types": "^7.1.0",
     "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^16.11.18",
@@ -49,6 +48,8 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.19"
+    "@testing-library/react": "^12.1.2",
+    "@types/styled-components": "^5.1.19",
+    "jest-watch-typeahead": "^0.6.5"
   }
 }

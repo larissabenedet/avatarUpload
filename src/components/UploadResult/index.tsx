@@ -32,12 +32,13 @@ const UploadResult = ({ type }: Props) => {
 
   return (
     <Wrapper>
-      <CloseButton onClick={handleClose} />
+      <CloseButton onClick={handleClose}/>
       {type === 'crop' ? (
         <>
           <Cropper
             cropShape="round"
             image={uploadedFile}
+            data-testid="image"
             zoom={zoom}
             crop={crop}
             onZoomChange={handleZoomChange}

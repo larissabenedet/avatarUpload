@@ -2,22 +2,35 @@ import React, { ReactNode, useContext, useState } from 'react'
 import getCroppedImg from '../utils/cropImage'
 interface ContextValue {
   uploadedFile: string
-  croppedFile: string
+  croppedFile: any
   fileHasToBeCropped: boolean
   hasError: boolean
   handleUpload: (file: Array<File>) => void
   handleError: () => void
   handleClose: () => void
-  zoom: number
-  crop: { x: number; y: number }
-  handleZoomChange: (zoom?: any) => void
-  handleCropChange: (crop?: any) => void
+  zoom: number | undefined
+  crop: Point
+  handleZoomChange: (zoom?: number | number[] | undefined) => void
+  handleCropChange: (crop?: Point) => void
   handleCropComplete: (
-    croppedAreaPercentage?: any,
-    croppedAreaPixels?: any,
+    croppedAreaPercentage?: Area,
+    croppedAreaPixels?: Area,
   ) => void
   onAvatarSave: () => void
 }
+
+type Area = {
+  width: number
+  height: number
+  x: number
+  y: number
+}
+
+type Point = {
+  x: number
+  y: number
+}
+
 interface Props {
   children: ReactNode
 }
@@ -28,12 +41,12 @@ export const AvatarContext = React.createContext<ContextValue | undefined>(
 
 export const AvatarContextProvider = ({ children }: Props) => {
   const [uploadedFile, setUploadedFile] = useState('')
-  const [croppedFile, setCroppedFile] = useState('')
+  const [croppedFile, setCroppedFile] = useState<any>('')
   const [fileHasToBeCropped, setFileHasToBeCropped] = useState(false)
   const [hasError, setHasError] = useState(false)
-  const [zoom, setZoom] = useState(1)
+  const [zoom, setZoom] = useState<number | undefined>(1)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
-  const [croppedArea, setCroppedArea] = useState(null)
+  const [croppedArea, setCroppedArea] = useState<Area | null | undefined>(null)
 
   function handleUpload(file: Array<File>) {
     setUploadedFile(window.URL.createObjectURL(file[0]))
@@ -60,8 +73,8 @@ export const AvatarContextProvider = ({ children }: Props) => {
   }
 
   function handleCropComplete(
-    croppedAreaPercentage?: any,
-    croppedAreaPixels?: any,
+    croppedAreaPercentage?: Area,
+    croppedAreaPixels?: Area,
   ) {
     setCroppedArea(croppedAreaPixels)
   }
@@ -87,7 +100,7 @@ export const AvatarContextProvider = ({ children }: Props) => {
     handleCropChange,
     handleCropComplete,
     onAvatarSave,
-    croppedFile,
+    croppedFile
   }
 
   return (
