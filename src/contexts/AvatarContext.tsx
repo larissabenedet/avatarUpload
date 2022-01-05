@@ -45,11 +45,11 @@ export const AvatarContextProvider = ({ children }: Props) => {
     }
 
     function handleZoomChange(zoomValue?: any) {
-        setZoom(zoom)
+        setZoom(zoomValue)
     }
 
     function handleCropChange(cropValue?: any) {
-        setCrop(crop)
+        setCrop(cropValue)
     }
 
     function handleCropComplete(croppedAreaPercentage?: any, croppedAreaPixels?: any) {
@@ -60,9 +60,9 @@ export const AvatarContextProvider = ({ children }: Props) => {
         if (croppedArea) {
             const croppedAvatarUrl = await getCroppedImg(uploadedFile.preview, croppedArea)
             setUploadedFile(Object.assign(uploadedFile, { croppedImage: croppedAvatarUrl }))
-            handleClose()
             setZoom(1)
             setCrop({ x: 0, y: 0 })
+            handleClose()
         }
     }
 

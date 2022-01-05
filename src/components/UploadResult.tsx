@@ -39,7 +39,7 @@ const UploadResult = ({ type }: Props) => {
                             min={1}
                             max={3}
                             step={0.1}
-                            onChange={(e, zoom) => handleZoomChange(zoom)}
+                            onChange={(e, zoomValue) => handleZoomChange(zoomValue)}
                         />
                         <ButtonBox>
                             <SaveButton onClick={onAvatarSave}>Save</SaveButton>
