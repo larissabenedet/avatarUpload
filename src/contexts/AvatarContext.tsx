@@ -11,7 +11,7 @@ interface ContextValue {
   zoom: number
   crop: { x: number; y: number }
   handleZoomChange: (zoom?: any) => void
-  handleCropChange: () => void
+  handleCropChange: (crop?: any) => void
   handleCropComplete: (
     croppedAreaPercentage?: any,
     croppedAreaPixels?: any,

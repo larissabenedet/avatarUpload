@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import { DropzoneContainer } from './styles'
 import Dropzone from 'react-dropzone'
 import UploadMessage from './UploadMessage'
-import { useAvatarContext } from '../contexts/AvatarContext'
-import UploadResult from './UploadResult'
+import { useAvatarContext } from '../../contexts/AvatarContext'
+import UploadResult from '../UploadResult'
 
 const AvatarUpload = () => {
   const { handleUpload, fileHasToBeCropped, handleError, hasError } =
@@ -12,7 +12,7 @@ const AvatarUpload = () => {
     if (hasError) {
       return <UploadResult type="error" />
     } else if (fileHasToBeCropped) {
-      return <UploadResult type="success" />
+      return <UploadResult type="crop" />
     } else {
       return (
         <Dropzone
@@ -37,30 +37,5 @@ const AvatarUpload = () => {
 
   return showUpload()
 }
-
-const DropzoneContainer = styled.div<{
-  isDragActive: boolean
-  isDragReject: boolean
-}>`
-  background: #f2f5f8;
-  border: 2px dashed #c7cdd3;
-  border-radius: 8px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 64px;
-  box-sizing: border-box;
-  transition: all 0.2s ease;
-  cursor: pointer;
-
-  @media (max-width: 768px) {
-    padding: 44px;
-    flex-direction: column;
-  }
-
-  ${(props) => props.isDragActive && `border-color: #00b900;`};
-  ${(props) => props.isDragReject && `border-color: red;`};
-`
 
 export default AvatarUpload
