@@ -33,13 +33,17 @@ const DropzoneContainer = styled.div<{ isDragActive: boolean, isDragReject: bool
   border-radius: 8px;
   width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 64px;
   box-sizing: border-box;
   transition: all 0.2s ease;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    padding: 44px;
+    flex-direction: column;
+  }
 
   ${(props) => (props.isDragActive && `border-color: #00b900;`)};
   ${(props) => (props.isDragReject && `border-color: red;`)};

@@ -40,9 +40,12 @@ p {
 	line-height: 1.563rem;
 }
 
-.reactEasyCrop_Container {
-    position: relative !important;
+div.reactEasyCrop_Container {
+    position: relative;
 	width: 114px;
 	height: 114px;
+}
+div.reactEasyCrop_CropArea {
+	color: #F2F5F8;
 }
 `

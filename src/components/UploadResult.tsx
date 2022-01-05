@@ -10,7 +10,8 @@ type Props = {
 }
 
 const UploadResult = ({ type }: Props) => {
-    const { uploadedFile, handleClose, zoom, handleZoomChange, crop, handleCropChange, handleCropComplete } = useAvatarContext()
+    const { uploadedFile, handleClose, zoom, handleZoomChange, crop, handleCropChange, handleCropComplete,
+    onAvatarSave } = useAvatarContext()
 
     return (
         <Wrapper>
@@ -40,7 +41,9 @@ const UploadResult = ({ type }: Props) => {
                             step={0.1}
                             onChange={(e, zoom) => handleZoomChange(zoom)}
                         />
-                        <ButtonBox><SaveButton>Save</SaveButton></ButtonBox>
+                        <ButtonBox>
+                            <SaveButton onClick={onAvatarSave}>Save</SaveButton>
+                        </ButtonBox>
                     </CropWrapper>
                 </>
             ) : (
@@ -86,7 +89,7 @@ const Image = styled.img<{ hasError?: boolean }>`
     ${props => props.hasError && `padding: 32px`}
 `;
 const CropWrapper = styled.div`
-    width: 60%;
+    width: 276px;
     display: flex;
     flex-direction: column;
 `;

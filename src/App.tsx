@@ -19,7 +19,10 @@ const Container = styled.section`
   display: flex;
   align-items: center;
   height: 100vh;
-  padding: 0 10px;
+
+  @media (max-width: 768px) {
+    padding: 0 15px;
+  }
 `;
 
 export default App;
