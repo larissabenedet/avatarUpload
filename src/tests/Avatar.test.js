@@ -21,7 +21,7 @@ describe('Upload Component (Dropzone)', () => {
   })
 
   it('Denies a video upload in .mp4', async () => {
-    const file = [createFile('file1.mp4', 'video', 'video/mp4')]
+    const file = [createFile('video.mp4', 'video', 'video/mp4')]
     const { getByTestId, rerender } = render(<AvatarUpload />)
     const uploader = getByTestId('ImageUpload-dropzone')
     const data = createDtWithFiles(file)

@@ -3,7 +3,7 @@
 This project allows users to upload and crop the images that they want.<br>
 **Made with Typescript & React**
 
-### [⚓ Click here to visit the site ⚓](https://link.app/) 
+### [⚓ Click here to visit the site ⚓](https://avatar-upload-deploy.vercel.app/) 
 ## How to run the project on your machine
 1. Clone the project with `git clone https://github.com/larissabenedet/avatarUpload.git`
 2. `cd avatarUpload` to enter the project folder
