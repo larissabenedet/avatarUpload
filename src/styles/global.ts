@@ -39,4 +39,10 @@ p {
 	font-size: 0.875rem;
 	line-height: 1.563rem;
 }
+
+.reactEasyCrop_Container {
+    position: relative !important;
+	width: 114px;
+	height: 114px;
+}
 `

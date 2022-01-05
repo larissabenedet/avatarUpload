@@ -2,29 +2,50 @@ import styled from 'styled-components'
 import { useAvatarContext } from '../contexts/AvatarContext'
 import IconAttention from '../assets/attention.svg'
 import { ReactComponent as IconClose } from '../assets/close.svg'
+import { Slider } from '@mui/material'
+import Cropper from 'react-easy-crop'
 
 type Props = {
     type: 'success' | 'error'
 }
 
 const UploadResult = ({ type }: Props) => {
-    const { uploadedFile, handleClose } = useAvatarContext()
+    const { uploadedFile, handleClose, zoom, handleZoomChange, crop, handleCropChange, handleCropComplete } = useAvatarContext()
 
     return (
         <Wrapper>
             <CloseButton onClick={handleClose} />
             {type === 'success' ? (
                 <>
-                    <ImageWrapper><Image src={uploadedFile.preview} hasError={false} /></ImageWrapper>
+                    <Cropper
+                        cropShape="round"
+                        image={uploadedFile.preview}
+                        zoom={zoom}
+                        crop={crop}
+                        onZoomChange={handleZoomChange}
+                        onCropChange={handleCropChange}
+                        onCropComplete={handleCropComplete}
+                        cropSize={{ width: 114, height: 114 }}
+                        aspect={1} />
+                    <ImageWrapper>
+                    </ImageWrapper>
                     <CropWrapper>
                         <p>Crop</p>
-                        <p>Element</p>
+                        <Slider
+                            size="small"
+                            aria-label="Zoom"
+                            value={zoom}
+                            min={1}
+                            max={3}
+                            step={0.1}
+                            onChange={(e, zoom) => handleZoomChange(zoom)}
+                        />
                         <ButtonBox><SaveButton>Save</SaveButton></ButtonBox>
                     </CropWrapper>
                 </>
             ) : (
                 <>
-                    <ImageWrapper><Image src={IconAttention} hasError={true} /></ImageWrapper>
+                    <ImageWrapper><Image src={IconAttention} hasError /></ImageWrapper>
                     <div>
                         <ErrorMessage>Sorry, the upload failed.</ErrorMessage>
                         <TryMessage onClick={handleClose}>Try again</TryMessage>
@@ -56,7 +77,7 @@ const ImageWrapper = styled.div`
     max-width: 114px;
     margin-right: 32px;
 `;
-const Image = styled.img<{ hasError: boolean }>`
+const Image = styled.img<{ hasError?: boolean }>`
     max-width: 100%;
     border-radius: 57px;
     background: #C3CBD5;

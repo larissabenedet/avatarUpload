@@ -5,13 +5,13 @@ import { useAvatarContext } from '../contexts/AvatarContext';
 import UploadResult from './UploadResult';
 
 const AvatarUpload = () => {
-    const { handleUpload, cropFile, handleError, hasError } = useAvatarContext()
+    const { handleUpload, fileHasToBeCropped, handleError, hasError } = useAvatarContext()
 
     function showUpload() {
         if (hasError) {
             return <UploadResult type="error" />
         }
-        else if (cropFile) {
+        else if (fileHasToBeCropped) {
             return <UploadResult type="success" />
         } else {
             return <Dropzone accept="image/*" onDropAccepted={handleUpload} onDropRejected={handleError}>
