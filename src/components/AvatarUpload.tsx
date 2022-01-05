@@ -1,35 +1,49 @@
 import styled from 'styled-components'
-import Dropzone from 'react-dropzone';
-import UploadMessage from './UploadMessage';
-import { useAvatarContext } from '../contexts/AvatarContext';
-import UploadResult from './UploadResult';
+import Dropzone from 'react-dropzone'
+import UploadMessage from './UploadMessage'
+import { useAvatarContext } from '../contexts/AvatarContext'
+import UploadResult from './UploadResult'
 
 const AvatarUpload = () => {
-    const { handleUpload, fileHasToBeCropped, handleError, hasError } = useAvatarContext()
+  const { handleUpload, fileHasToBeCropped, handleError, hasError } =
+    useAvatarContext()
 
-    function showUpload() {
-        if (hasError) {
-            return <UploadResult type="error" />
-        }
-        else if (fileHasToBeCropped) {
-            return <UploadResult type="success" />
-        } else {
-            return <Dropzone accept="image/*" onDropAccepted={handleUpload} onDropRejected={handleError}>
-                {({ getRootProps, getInputProps, isDragActive, isDragReject }) =>
-                    <DropzoneContainer {...getRootProps()} isDragActive={isDragActive} isDragReject={isDragReject}>
-                        <input {...getInputProps()} />
-                        <UploadMessage />
-                    </DropzoneContainer>}
-            </Dropzone>
-        }
+  function showUpload() {
+    if (hasError) {
+      return <UploadResult type="error" />
+    } else if (fileHasToBeCropped) {
+      return <UploadResult type="success" />
+    } else {
+      return (
+        <Dropzone
+          accept="image/*"
+          onDropAccepted={handleUpload}
+          onDropRejected={handleError}
+        >
+          {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
+            <DropzoneContainer
+              {...getRootProps()}
+              isDragActive={isDragActive}
+              isDragReject={isDragReject}
+            >
+              <input {...getInputProps()} />
+              <UploadMessage />
+            </DropzoneContainer>
+          )}
+        </Dropzone>
+      )
     }
+  }
 
-    return showUpload()
+  return showUpload()
 }
 
-const DropzoneContainer = styled.div<{ isDragActive: boolean, isDragReject: boolean }>`
-  background: #F2F5F8;
-  border: 2px dashed #C7CDD3;
+const DropzoneContainer = styled.div<{
+  isDragActive: boolean
+  isDragReject: boolean
+}>`
+  background: #f2f5f8;
+  border: 2px dashed #c7cdd3;
   border-radius: 8px;
   width: 100%;
   display: flex;
@@ -45,8 +59,8 @@ const DropzoneContainer = styled.div<{ isDragActive: boolean, isDragReject: bool
     flex-direction: column;
   }
 
-  ${(props) => (props.isDragActive && `border-color: #00b900;`)};
-  ${(props) => (props.isDragReject && `border-color: red;`)};
-`;
+  ${(props) => props.isDragActive && `border-color: #00b900;`};
+  ${(props) => props.isDragReject && `border-color: red;`};
+`
 
 export default AvatarUpload

@@ -1,7 +1,7 @@
-import AvatarUpload from "./components/AvatarUpload";
-import styled from "styled-components";
+import AvatarUpload from './components/AvatarUpload'
+import styled from 'styled-components'
 import GlobalStyle from './styles/global'
-import { AvatarContextProvider } from "./contexts/AvatarContext";
+import { AvatarContextProvider } from './contexts/AvatarContext'
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
       <Container>
         <AvatarUpload />
       </Container>
-    </AvatarContextProvider>);
+    </AvatarContextProvider>
+  )
 }
 
 const Container = styled.section`
@@ -23,6 +24,6 @@ const Container = styled.section`
   @media (max-width: 768px) {
     padding: 0 15px;
   }
-`;
+`
 
-export default App;
+export default App
