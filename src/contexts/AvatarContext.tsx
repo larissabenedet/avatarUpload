@@ -1,7 +1,8 @@
 import React, { ReactNode, useContext, useState } from "react";
 import getCroppedImg from '../utils/cropImage'
 interface ContextValue {
-    uploadedFile: any
+    uploadedFile: string
+    croppedFile: string
     fileHasToBeCropped: boolean
     hasError: boolean
     handleUpload: (file: Array<File>) => void
@@ -23,7 +24,8 @@ export const AvatarContext = React.createContext<ContextValue | undefined>(
 );
 
 export const AvatarContextProvider = ({ children }: Props) => {
-    const [uploadedFile, setUploadedFile] = useState<any>({})
+    const [uploadedFile, setUploadedFile] = useState('')
+    const [croppedFile, setCroppedFile] = useState('')
     const [fileHasToBeCropped, setFileHasToBeCropped] = useState(false)
     const [hasError, setHasError] = useState(false)
     const [zoom, setZoom] = useState(1)
@@ -31,7 +33,7 @@ export const AvatarContextProvider = ({ children }: Props) => {
     const [croppedArea, setCroppedArea] = useState(null)
 
     function handleUpload(file: Array<File>) {
-        setUploadedFile({ preview: window.URL.createObjectURL(file[0]) })
+        setUploadedFile(window.URL.createObjectURL(file[0]))
         setFileHasToBeCropped(true)
     }
 
@@ -41,6 +43,8 @@ export const AvatarContextProvider = ({ children }: Props) => {
 
     function handleClose() {
         setHasError(false)
+        setZoom(1)
+        setCrop({ x: 0, y: 0 })
         setFileHasToBeCropped(false)
     }
 
@@ -58,17 +62,15 @@ export const AvatarContextProvider = ({ children }: Props) => {
 
     async function onAvatarSave() {
         if (croppedArea) {
-            const croppedAvatarUrl = await getCroppedImg(uploadedFile.preview, croppedArea)
-            setUploadedFile(Object.assign(uploadedFile, { croppedImage: croppedAvatarUrl }))
-            setZoom(1)
-            setCrop({ x: 0, y: 0 })
+            const croppedAvatarUrl = await getCroppedImg(uploadedFile, croppedArea)
+            setCroppedFile(croppedAvatarUrl)
             handleClose()
         }
     }
 
     const value = {
         uploadedFile, handleUpload, fileHasToBeCropped, handleError, hasError, handleClose, zoom, handleZoomChange,
-        crop, handleCropChange, handleCropComplete, onAvatarSave
+        crop, handleCropChange, handleCropComplete, onAvatarSave, croppedFile
     };
 
     return <AvatarContext.Provider value={value}>{children}</AvatarContext.Provider>;

@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import { useAvatarContext } from '../contexts/AvatarContext'
 
 const UploadMessage = () => {
-    const { uploadedFile } = useAvatarContext()
+    const { croppedFile } = useAvatarContext()
     return (
         <>
-            {uploadedFile.croppedImage &&
+            {croppedFile &&
                 <ImageWrapper>
-                    <Image src={uploadedFile.croppedImage} />
+                    <Image src={croppedFile} />
                 </ImageWrapper>
             }
             <TextContainer>

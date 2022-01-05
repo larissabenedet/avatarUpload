@@ -20,7 +20,7 @@ const UploadResult = ({ type }: Props) => {
                 <>
                     <Cropper
                         cropShape="round"
-                        image={uploadedFile.preview}
+                        image={uploadedFile}
                         zoom={zoom}
                         crop={crop}
                         onZoomChange={handleZoomChange}
