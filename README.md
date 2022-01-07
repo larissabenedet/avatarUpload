@@ -2,8 +2,8 @@
 
 <div style="margin-bottom: 10px">
     <img alt="Language" src="https://img.shields.io/badge/language-TypeScript-blue" />
-    <img alt="Library" src="https://img.shields.io/badge/library-react-lightgrey" />
-    <img alt="Tests" src="https://img.shields.io/badge/tests-react--testing--library-yellow" />
+    <img alt="Library" src="https://img.shields.io/badge/library-React-lightgrey" />
+    <img alt="Tests" src="https://img.shields.io/badge/tests-React--testing--library-yellow" />
 </div>
 
 ## About the project
@@ -18,4 +18,5 @@ This project allows users to upload and crop the images that they want.<br>
 2. `cd avatarUpload` to enter the project folder
 3. `npm install` to install project dependencies
 4. `npm start` to start the server
-5. Access the server at `localhost:3000`
+5. `npm test` to run tests *(optional)*
+6. Access the server at `localhost:3000`

@@ -1,8 +1,8 @@
 import React, { ReactNode, useContext, useState } from 'react'
 import getCroppedImg from '../utils/cropImage'
 interface ContextValue {
-  uploadedFile: string
-  croppedFile: any
+  uploadedFile: string | undefined
+  croppedFile: string | undefined
   fileHasToBeCropped: boolean
   hasError: boolean
   handleUpload: (file: Array<File>) => void
@@ -41,7 +41,7 @@ export const AvatarContext = React.createContext<ContextValue | undefined>(
 
 export const AvatarContextProvider = ({ children }: Props) => {
   const [uploadedFile, setUploadedFile] = useState('')
-  const [croppedFile, setCroppedFile] = useState<any>('')
+  const [croppedFile, setCroppedFile] = useState('')
   const [fileHasToBeCropped, setFileHasToBeCropped] = useState(false)
   const [hasError, setHasError] = useState(false)
   const [zoom, setZoom] = useState<number | undefined>(1)
@@ -100,7 +100,7 @@ export const AvatarContextProvider = ({ children }: Props) => {
     handleCropChange,
     handleCropComplete,
     onAvatarSave,
-    croppedFile
+    croppedFile,
   }
 
   return (

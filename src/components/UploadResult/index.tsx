@@ -32,7 +32,7 @@ const UploadResult = ({ type }: Props) => {
 
   return (
     <Wrapper>
-      <CloseButton onClick={handleClose}/>
+      <CloseButton onClick={handleClose} data-testid="closeButton" />
       {type === 'crop' ? (
         <>
           <Cropper

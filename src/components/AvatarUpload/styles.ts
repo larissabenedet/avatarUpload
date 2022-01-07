@@ -14,11 +14,13 @@ export const DropzoneContainer = styled.div<{
   padding: 64px;
   box-sizing: border-box;
   transition: all 0.2s ease;
+  max-height: 177px;
   cursor: pointer;
 
   @media (max-width: 768px) {
     padding: 44px;
     flex-direction: column;
+    max-height: none;
   }
 
   ${(props) => props.isDragActive && `border-color: #00b900;`};
