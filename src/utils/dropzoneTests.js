@@ -29,6 +29,10 @@ export function fireDragEnter(node, data) {
   dispatchEvt(node, 'dragenter', data)
 }
 
+export function fireDrop(node, data) {
+  dispatchEvt(node, 'drop', data)
+}
+
 export async function flushPromises(rerender, ui) {
   await act(() => waitFor(() => rerender(ui)))
 }
