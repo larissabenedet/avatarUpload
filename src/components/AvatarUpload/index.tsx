@@ -25,7 +25,6 @@ const AvatarUpload = () => {
               {...getRootProps()}
               isDragActive={isDragActive}
               isDragReject={isDragReject}
-              data-testid="ImageUpload-dropzone"
             >
               <input {...getInputProps()} />
               <UploadMessage />

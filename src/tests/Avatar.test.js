@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import AvatarUpload from '../components/AvatarUpload'
 import UploadResult from '../components/UploadResult'
 import {
   createDtWithFiles,
@@ -14,7 +13,7 @@ import { Slider } from '@mui/material'
 import Dropzone from 'react-dropzone'
 
 describe('Upload (Dropzone)', () => {
-  const ui = (
+  const dropzoneComponent = (
     <AvatarContextProvider>
       <AvatarContext.Consumer>
         {(value) => (
@@ -48,52 +47,50 @@ describe('Upload (Dropzone)', () => {
       </AvatarContext.Consumer>
     </AvatarContextProvider>
   )
-  it('Verify if component exists', () => {
-    const { getByTestId } = render(<AvatarUpload />)
-    const uploader = getByTestId('ImageUpload-dropzone')
-    expect(uploader).toBeInTheDocument()
-  })
+
+  const files = [
+    [createFile('photo.png', 'photo', 'image/*')],
+    [createFile('video.mp4', 'video', 'video/*')],
+    [createFile('app.zip', 'zip', 'application/zip')],
+  ]
+
   it('Allows dragging a image', async () => {
-    const file = [createFile('photo.png', 'photo', 'image/*')]
-    const { getByTestId, getByText, rerender } = render(ui)
+    const { getByTestId, getByText, rerender } = render(dropzoneComponent)
     const uploader = getByTestId('ImageUpload-dropzone')
-    const data = createDtWithFiles(file)
+    const data = createDtWithFiles(files[0])
     fireDragEnter(uploader, data)
-    await flushPromises(rerender, ui)
+    await flushPromises(rerender, dropzoneComponent)
 
     expect(getByText('Active: true'))
   })
   it('Denies dragging a video', async () => {
-    const file = [createFile('video.mp4', 'video', 'video/*')]
-    const { getByTestId, getByText, rerender } = render(ui)
+    const { getByTestId, getByText, rerender } = render(dropzoneComponent)
     const uploader = getByTestId('ImageUpload-dropzone')
-    const data = createDtWithFiles(file)
+    const data = createDtWithFiles(files[1])
     fireDragEnter(uploader, data)
-    await flushPromises(rerender, ui)
+    await flushPromises(rerender, dropzoneComponent)
 
     expect(getByText('Reject: true'))
   })
   it('Allows dropping a image', async () => {
-    const file = [createFile('photo.png', 'photo', 'image/*')]
-    const { getByTestId, getByText, rerender } = render(ui)
+    const { getByTestId, getByText, rerender } = render(dropzoneComponent)
     const uploader = getByTestId('ImageUpload-dropzone')
-    const data = createDtWithFiles(file)
+    const data = createDtWithFiles(files[0])
     fireDrop(uploader, data)
     window.URL.createObjectURL = jest.fn() // for handleUpload function
-    await flushPromises(rerender, ui)
+    await flushPromises(rerender, dropzoneComponent)
 
     expect(window.URL.createObjectURL).toHaveBeenCalled()
     expect(getByText('HasToBeCropped: true'))
     expect(getByText('hasError: false'))
   })
   it('Denies dropping a zip', async () => {
-    const file = [createFile('app.zip', 'zip', 'application/zip')]
-    const { getByTestId, getByText, rerender } = render(ui)
+    const { getByTestId, getByText, rerender } = render(dropzoneComponent)
     const uploader = getByTestId('ImageUpload-dropzone')
-    const data = createDtWithFiles(file)
+    const data = createDtWithFiles(files[2])
     fireDrop(uploader, data)
     window.URL.createObjectURL = jest.fn() // for handleUpload function
-    await flushPromises(rerender, ui)
+    await flushPromises(rerender, dropzoneComponent)
 
     expect(window.URL.createObjectURL).not.toHaveBeenCalled()
     expect(getByText('HasToBeCropped: false'))
